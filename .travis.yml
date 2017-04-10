@@ -1,5 +1,5 @@
 services:
-- redis
+- redis-server
 
 language: python
 
@@ -16,4 +16,4 @@ install:
   - pip install coverage
 
 # command to run tests
-script: nosetest
+script: nosetests
