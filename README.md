@@ -1,5 +1,5 @@
 # Flask-Cache-Redis-Cluster
-This implements a redis cluster backend for [Flask-Cache(ing)](https://pythonhosted.org/Flask-Cache/#custom-cache-backends)
+This implements a redis cluster backend for [Flask-Cache(ing)](https://pythonhosted.org/Flask-Cacheing/#custom-cache-backends)
 as the standard redis cache cannot handle a redis cluster.
 
 ## Usage
