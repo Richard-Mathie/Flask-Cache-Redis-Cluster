@@ -1,19 +1,23 @@
 services:
 - redis-server
-
 language: python
-
 python:
-  - "2.6"
-  - "2.7"
-  - "pypy-5.3.1"
-# command to install dependencies
+- '2.6'
+- '2.7'
+- pypy-5.3.1
 install:
-  - pip install -r requirements.txt
-  - pip install Flask-Caching
-  - python setup.py -q install
-  - pip install codeclimate-test-reporter
-  - pip install coverage
-
-# command to run tests
+- pip install -r requirements.txt
+- pip install Flask-Caching
+- python setup.py -q install
+- pip install codeclimate-test-reporter
+- pip install coverage
 script: nosetests
+deploy:
+  provider: pypi
+  user: RichardMathie
+  password:
+    secure: WPfmYBVlP5joFUqAliN6glluK+Lb9qZD7TpV4T/tAPa4SUeGsOUIfreNVDjVvXFkdzkLwGEbhm/pSiiN+LFWZhwKTrB2IZH7qrk/Sp/VfaPxveKgPejze8k/933TJpI7Iu7X8dTW2iNa+OVi5WB5XUfNiZoeF8Lo60niyylMrToN9fX5tQhuTmsjnc9voOQBcQQUMy/2WHiABBOdpAdYWT1HE+2uJAZHysMIVFnWWWBaIVYMOLMi/6H0YWzsSqaebbPXy50o9g4RN1z4wwIHuOc+1iNjY+gnc2aW9FTZWKb+95hgV+e0b2DtbX15Hgsa1Cqn0q6j5jfHsFn7K93+KpgGmUtecYXOWmz2RDiZ1ZUJ2n5iRw7u5Dh4iw019sDn4KLbsUVwNlRjaijK/8bfmSh+ChO7J8CT4cgC52b8Cttqn0E2ULRB+ryHjnXfoO2+eP7kyIgN0vXf681JWUkdjx/ZZexcGrpn1YZDg/Wn8NB0wdW4k+Ts5PKMP2HU2lpNWRGa8aIa48rnKExpPMpUvPkfPEzc2kX/ihrIZZ8NGLM1aj7wFwJGH/YtqDGhcQ1R60ElEoySjbS+7l/44c1XumfWp07kNpdNI6Z+KmaZfSkhMg0yiziWeadATT1NwZ5F/VeHbMNxBpBiqoorZfav2OASYS8tqpC6/j2gCRczEM4=
+  on:
+    tags: true
+    distributions: sdist bdist_wheel
+    repo: Richard-Mathie/Flask-Cache-Redis-Cluster
