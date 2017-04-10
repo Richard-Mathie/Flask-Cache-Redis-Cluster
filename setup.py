@@ -23,7 +23,7 @@ Links
 from setuptools import setup, find_packages
 
 with open('Version', 'rb') as f:
-    version = f.read().decode('utf-8')
+    version = f.read().strip().decode('utf-8')
 
 
 setup(
@@ -35,8 +35,7 @@ setup(
     author_email='richard.mathie@cantab.net',
     description='Adds redis cluster caching support to the Flask Cache(ing) extension',
     long_description=__doc__,
-    packages=find_packages(exclude=('tests',)),
-    zip_safe=False,
+    packages=['flask_cache_redis_cluster'],
     platforms='any',
     install_requires=[
         'werkzeug',
