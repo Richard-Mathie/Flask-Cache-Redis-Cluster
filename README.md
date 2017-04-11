@@ -1,4 +1,8 @@
 # Flask-Cache-Redis-Cluster
+[![PyPI version](https://img.shields.io/pypi/v/Flask-Cache-Redis-Cluster.svg)](https://pypi.python.org/pypi/Flask-Cache-Redis-Cluster)
+[![Travis CI](https://travis-ci.org/Richard-Mathie/Flask-Cache-Redis-Cluster.svg?branch=master)](https://travis-ci.org/Richard-Mathie/Flask-Cache-Redis-Cluster)
+[![Code Climate](https://codeclimate.com/repos/58ecbc857705a10265000f28/badges/8b2c22252025de68ce4d/gpa.svg)](https://codeclimate.com/repos/58ecbc857705a10265000f28/feed)
+[![Test Coverage](https://codeclimate.com/repos/58ecbc857705a10265000f28/badges/8b2c22252025de68ce4d/coverage.svg)](https://codeclimate.com/repos/58ecbc857705a10265000f28/coverage)
 
 Implements a redis cluster backend for [Flask-Cache(ing)](https://pythonhosted.org/Flask-Cacheing/#custom-cache-backends)
 as the standard redis cache cannot handle a redis cluster.

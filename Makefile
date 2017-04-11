@@ -119,6 +119,7 @@ cleanall: clean cleancov cleanmeta
 	-find . -type f -name "*.parse-index" -exec rm -f "{}" \;
 
 dist: cleanmeta
+	-pandoc --from=markdown --to=rst --output=README.rst README.md
 	-python setup.py sdist bdist_wheel
 
 package: dist
