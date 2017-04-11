@@ -74,7 +74,7 @@ cluster-config-file /tmp/redis_cluster_node6.conf
 endef
 
 ifndef REDIS_VERSION
-	REDIS_VERSION=3.0.7
+	REDIS_VERSION=3.2.0
 endif
 
 export NODE1_CONF
