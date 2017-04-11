@@ -1,17 +1,29 @@
 services:
 - redis-server
+
 language: python
+
 python:
 - '2.6'
 - '2.7'
 - pypy-5.3.1
+
 install:
 - pip install -r requirements.txt
 - pip install Flask-Caching
-- python setup.py -q install
+- pip install -e .
 - pip install codeclimate-test-reporter
 - pip install coverage
-script: nosetests
+- make travis-install
+
+script:
+- make start
+- nosetests -v --with-coverage --cover-tests --cover-package=flask_cache_redis_cluster 
+- make stop
+
+after_success:
+    - coveralls
+    - CODECLIMATE_REPO_TOKEN=a706af1371a6741e33be5874de7536243b27a0f998c94b39cd5b72bd217a01ab codeclimate-test-reporter
 deploy:
   provider: pypi
   user: RichardMathie

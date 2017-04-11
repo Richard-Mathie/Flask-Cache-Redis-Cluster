@@ -1,30 +1,17 @@
 #!/usr/bin/env python
-"""
-Flask-Cache-Redis-Cluster
-=============
-Implements a redis cluster backend for Flask-Cache(ing)
-as the standard redis cache cannot handle a redis cluster.
-
-Usage
------
-The redis cluster backend can be imported vire the Cache Extension by:
-.. code:: python
-    from flask import Flask
-    from flask_caching import Cache
-    app = Flask(__name__)
-    # For more configuration options, check out the documentation
-    cache = Cache(app, config={'CACHE_TYPE': 'flask_cache_redis_cluster.rediscluster'})
-Links
-=====
-* `Documentation <https://pythonhosted.org/Flask-Caching/>`_
-* `Original Flask-Cache Extension <https://github.com/thadeusb/flask-cache>`_
-* `Werkzeug Cache <http://werkzeug.pocoo.org/docs/0.11/contrib/cache/>`_
-"""
-from setuptools import setup, find_packages
+# -*- coding: utf-8 -*-
+from setuptools import setup
 
 with open('Version', 'rb') as f:
-    version = f.read().strip().decode('utf-8')
+    version = next(f).strip().decode('utf-8')
 
+with open('README.rst') as f:
+    readme = f.read()
+
+with open('requirements.txt') as f:
+    requirements = [r for r in f]
+
+__doc__ = readme
 
 setup(
     name='Flask-Cache-Redis-Cluster',
@@ -37,10 +24,7 @@ setup(
     long_description=__doc__,
     packages=['flask_cache_redis_cluster'],
     platforms='any',
-    install_requires=[
-        'werkzeug',
-        'redis-py-cluster'
-    ],
+    install_requires=requirements,
     test_suite='tests',
     classifiers=[
         'Environment :: Web Environment',
