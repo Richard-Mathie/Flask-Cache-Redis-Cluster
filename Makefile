@@ -86,11 +86,43 @@ export NODE6_CONF
 
 help:
 	@echo "Please use 'make <target>' where <target> is one of"
+	@echo "  clean           remove temporary files created by build tools"
+	@echo "  cleanmeta       removes all META-* and egg-info/ files created by build tools"
+	@echo "  cleancov        remove all files related to coverage reports"
+	@echo "  cleanall        all the above + tmp files from development tools"
+	@echo "  dist            make a source and wheel distribution"
+	@echo " *** CI Commands ***"
 	@echo "  start             starts a test redis cluster"
 	@echo "  cleanup           cleanup config files after redis cluster"
 	@echo "  stop              stops all redis servers"
 	@echo "  travis-run        starts the redis cluster and runs your tests"
 	@echo "  travis-install    install redis from 'unstable' branch"
+
+clean:
+	-rm -f MANIFEST
+	-rm -rf dist/
+	-rm -rf build/
+
+cleancov:
+	-rm -rf htmlcov/
+	-coverage combine
+	-coverage erase
+
+cleanmeta:
+	-rm -rf Flask_Cache_Redis_Cluster.egg-info/
+
+cleanall: clean cleancov cleanmeta
+	-find . -type f -name "*~" -exec rm -f "{}" \;
+	-find . -type f -name "*.orig" -exec rm -f "{}" \;
+	-find . -type f -name "*.rej" -exec rm -f "{}" \;
+	-find . -type f -name "*.pyc" -exec rm -f "{}" \;
+	-find . -type f -name "*.parse-index" -exec rm -f "{}" \;
+
+dist: cleanmeta
+	-python setup.py sdist bdist_wheel
+
+package: dist
+	-twine upload dist/Flask-Cache-Redis-Cluster-"$(cat Version)".tar.gz
 
 start: cleanup
 	echo "$$NODE1_CONF" | redis-server -
@@ -100,7 +132,7 @@ start: cleanup
 	echo "$$NODE5_CONF" | redis-server -
 	echo "$$NODE6_CONF" | redis-server -
 
-  sleep 5
+	sleep 5
 
 	# Join all nodes in the cluster
 	echo "yes" | ruby redis-git/src/redis-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005
@@ -124,10 +156,8 @@ travis-run:
 	# Start all cluster nodes
 	make start
 
-	#########
-	# Run your tests/code here
-	# For example: py.test
-	#########
+	# Run tests
+	nosetests -v --with-coverage --cover-tests --cover-package=flask_cache_redis_cluster
 
 	# Kill all redis nodes and do cleanup
 	make stop
